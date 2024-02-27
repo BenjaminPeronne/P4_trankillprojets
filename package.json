@@ -15,7 +15,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/BenjaminPeronne/"
+		"url": "git+https://github.com/BenjaminPeronne/P4_trankillprojets"
 	},
 	"keywords": [
 		"node",
@@ -30,9 +30,9 @@
 	"author": "Benjamin Peronne",
 	"license": "UNLICENCED",
 	"bugs": {
-		"url": "https://github.com/BenjaminPeronne//issues"
+		"url": "https://github.com/BenjaminPeronne/P4_trankillprojets/issues"
 	},
-	"homepage": "https://github.com/BenjaminPeronne/#readme",
+	"homepage": "https://github.com/BenjaminPeronne/P4_trankillprojets#readme",
 	"dependencies": {
 		"compression": "^1.7.4",
 		"dotenv": "^10.0.0",
