@@ -1,4 +1,4 @@
-# <center> IHM | M1 MIAGE </center>
+# <center> P4 | IHM </center>
 
 Prénom : <em>Aymerick Benjamin</em>
 
