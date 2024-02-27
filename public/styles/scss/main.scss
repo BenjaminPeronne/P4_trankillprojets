@@ -1,0 +1,25 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+
+body,
+html {
+	width: 100%;
+	height: 100%;
+	padding: 0.5em;
+}
+
+.material-icons {
+	float: left;
+	font-size: 2.1em;
+	margin-right: 0.5rem;
+}
+
+p,
+a {
+	display: block;
+	margin-top: 0.5rem;
+}

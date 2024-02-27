@@ -1,0 +1,53 @@
+{
+	"id": "express-server",
+
+	"name": "express-server",
+	"short_name": "express-server",
+	"description": "is a simple express server template",
+
+	"start_url": "/",
+	"scope": "/",
+
+	"display_override": ["window-controls-overlay"],
+	"display": "standalone",
+	"orientation": "any",
+
+	"background_color": "#333333",
+	"theme_color": "#7dc36b",
+
+	"icons": [
+		{
+			"src": "./img/icons/#",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "./img/icons/#",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "./img/icons/#",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "./img/icons/#",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+
+	"shortcuts": [],
+
+	"related_applications": [
+		{
+			"platform": "web",
+			"url": "https://benjaminperonne.fr"
+		}
+	]
+}
