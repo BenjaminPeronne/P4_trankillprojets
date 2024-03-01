@@ -22,6 +22,8 @@
 	<link rel="icon" href="./img/icons/#" type="image/png" />
 	<link rel="shortcut icon" href="./img/icons/#" type="image/png" />
 	<link rel="apple-touch-icon" href="./img/icons/#" />
+	<script src="https://kit.fontawesome.com/4f35156239.js" crossorigin="anonymous"></script>
+
 
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -38,13 +40,49 @@
 
 	<!-- Scripts -->
 	<script src="./scripts/swclient.js"></script>
+	
 </head>
 
 <body>
-	<span class="material-icons">public</span>
-	<h1>Hello world</h1>
-	<p>Express server home page.</p>
-	<a href="https://github.com/benjaminperonne/express-server">Github repo</a>
+	<div id="ins">
+		<div id="ins-panel">
+			<div class="ins-player">
+				<i class="fas fa-user j1"></i>
+				<input type="text" name="j1" placeholder="Joueur 1" maxlength="10">
+				<button onclick="ins(1);"><i class="fas fa-gamepad"></i> Play</button>
+			</div>
+
+			<img src="./src/versus.png" id="resize_img" alt="versus">
+
+			<div class="ins-player">
+				<i class="fas fa-user j2"></i>
+				<input type="text" name="j2" placeholder="Joueur 2" maxlength="10">
+				<button onclick="ins(2);"><i class="fas fa-gamepad"></i> Play</button>
+			</div>
+		</div>
+	</div>
+	<div id="jeu">
+		<div id="status">
+			<div class="info">
+				<i class="fas fa-user j1"></i>
+				<h3 id="j1-name">...</h3>
+			</div>
+			<img src="./src/versus.png" id="resize_img" alt="versus">
+			<div class="info">
+				<h3 id="j2-name">...</h3>
+				<i class="fas fa-user j2"></i>
+			</div>
+		</div>
+		<div id="content">
+			<div id="plateau">
+			</div>
+		</div>
+		<div id="info">
+			<font id="player-name"></font> : C'est votre tour !
+		</div>
+	</div>
+
+	<script text="text/javascript" src="./scripts/p4.js"></script>
 </body>
 
 </html>
