@@ -1,6 +1,6 @@
 {
 	"name": "p4_trankillprojets",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "Node.js express http server made to use with RedBird https proxy",
 	"main": "server.js",
 	"scripts": {
@@ -41,6 +41,8 @@
 		"express-useragent": "^1.0.15",
 		"image-data-uri": "^1.0.0",
 		"ip": "^1.1.5",
-		"nodemon": "^2.0.7"
+		"jsonwebtoken": "^9.0.2",
+		"nodemon": "^2.0.7",
+		"sass": "^1.71.1"
 	}
 }
