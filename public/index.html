@@ -4,85 +4,124 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 
 	<!-- Primary Meta Tags -->
-	<title>Express Server</title>
-	<meta name="title" content="Express Server" />
-	<meta name="description" content="Node.js express http server made to use with RedBird https proxy" />
+	<title>Puissance 4</title>
+	<meta name="title" content="Puissance 4" />
+	<!-- <meta name="description" content="Node.js express http server made to use with RedBird https proxy" /> -->
 
 	<!-- Theme -->
 	<meta name="color-scheme" content="dark" />
 	<meta name="theme-color" content="#7dc36b" />
 
-	<link rel="manifest" href="/manifest.json" />
+	<!-- <link rel="manifest" href="/manifest.json" /> -->
 
 	<!-- Icons -->
-	<link rel="icon" href="./img/icons/#" type="image/png" />
-	<link rel="shortcut icon" href="./img/icons/#" type="image/png" />
-	<link rel="apple-touch-icon" href="./img/icons/#" />
-	<script src="https://kit.fontawesome.com/4f35156239.js" crossorigin="anonymous"></script>
-
+	<!-- <link rel="icon" href="./img/icons/#" type="image/png" /> -->
+	<!-- <link rel="shortcut icon" href="./img/icons/#" type="image/png" /> -->
+	<!-- <link rel="apple-touch-icon" href="./img/icons/#" /> -->
 
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link href="https://fonts.cdnfonts.com/css/king-gaming-free-trial" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 	<!-- Styles -->
 	<link rel="stylesheet" href="./styles/css/main.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 	<!-- Libraries -->
 
 	<!-- Apis -->
 
 	<!-- Components -->
-	<script src="./scripts/components/literal-code.js"></script>
+	<!-- <script src="./scripts/components/literal-code.js"></script> -->
+
 
 	<!-- Scripts -->
-	<script src="./scripts/swclient.js"></script>
-	
+	<!-- <script src="./scripts/swclient.js"></script> -->
+	<script text="text/javascript" src="./scripts/p4.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/4f35156239.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
-	<div id="ins">
-		<div id="ins-panel">
-			<div class="ins-player">
-				<i class="fas fa-user j1"></i>
-				<input type="text" name="j1" placeholder="Joueur 1" maxlength="10">
-				<button onclick="ins(1);"><i class="fas fa-gamepad"></i> Play</button>
-			</div>
+	<div class="container">
+		<!-- Conteneur d'alertes pour afficher les messages dynamiques -->
+		<div id="alert-container" class="container mt-3"></div>
 
-			<img src="./src/versus.png" id="resize_img" alt="versus">
+		<div class="container text-center m-5">
+			<h1 class="game-title">Puissance 4</h1>
+		</div>
 
-			<div class="ins-player">
-				<i class="fas fa-user j2"></i>
-				<input type="text" name="j2" placeholder="Joueur 2" maxlength="10">
-				<button onclick="ins(2);"><i class="fas fa-gamepad"></i> Play</button>
-			</div>
-		</div>
-	</div>
-	<div id="jeu">
-		<div id="status">
-			<div class="info">
-				<i class="fas fa-user j1"></i>
-				<h3 id="j1-name">...</h3>
-			</div>
-			<img src="./src/versus.png" id="resize_img" alt="versus">
-			<div class="info">
-				<h3 id="j2-name">...</h3>
-				<i class="fas fa-user j2"></i>
-			</div>
-		</div>
-		<div id="content">
-			<div id="plateau">
-			</div>
-		</div>
-		<div id="info">
-			<font id="player-name"></font> : C'est votre tour !
-		</div>
-	</div>
+		<div id="inscription" class="container">
+			<div id="inscription-panel" class="mt-5">
+				<div class="ins-player form-group">
+					<input type="text" id="input-player" name="player" placeholder="Entrez votre pseudo" maxlength="20"
+						class="form-control">
+					<button onclick="inscription();" class="btn btn-primary mt-3"><i class="fas fa-gamepad"></i>
+						Inscription
+					</button>
 
-	<script text="text/javascript" src="./scripts/p4.js"></script>
+					<!-- Bouton de reconnexion -->
+					<button onclick="reconnexion();" class="btn btn-primary mt-3">
+						<i class="fas fa-sync-alt"></i> Reconnexion : <span id="reconnexion-player-name"></span>
+					</button>
+				</div>
+
+			</div>
+		</div>
+
+		<div id="participer" class="container" style="display: none;">
+			<div id="participer-panel" class="mt-3">
+				<div class="ins-player form-group">
+					<p>Vous êtes connecté en tant que : <span id="connected-player-name"></span></p>
+					<button onclick="participer();" id="bouton-participer" class="btn btn-primary mt-3"><i
+							class="fas fa-gamepad"></i>
+						Jouer
+					</button>
+					<button onclick="deconnexion();" id="bouton-deconnexion" class="btn btn-primary mt-3"><i
+							class="fa-solid fa-right-from-bracket"></i>
+						Déconnexion
+					</button>
+				</div>
+			</div>
+			<button onclick="retourInscription();" class="btn btn-warning mt-3"><i class="fas fa-arrow-left"></i>
+				Retour
+			</button>
+		</div>
+
+		<div id="jeu" style="visibility: hidden;">
+			<div id="status">
+				<div class="info">
+					<i class="fas fa-user j1"></i>
+					<h3 id="j1-name">...</h3> <!-- Le pseudo du joueur 1 sera affiché ici -->
+				</div>
+				<img src="./src/versus.png" id="resize_img" alt="versus">
+				<div class="info">
+					<h3 id="j2-name">...</h3> <!-- Le pseudo du joueur 2 sera affiché ici -->
+					<i class="fas fa-user j2"></i>
+				</div>
+			</div>
+			<div id="content">
+				<div id="plateau">
+					<!-- Le plateau de jeu sera initialisé ici par JavaScript -->
+				</div>
+			</div>
+			<div id="info">
+				<font id="player-name"></font> <!-- Affiche à qui est le tour -->
+				<button onclick="abandonnerPartie()" class="finir-jeu-btn"><i class="fas fa-flag-checkered"></i>
+					Abandonner
+				</button>
+			</div>
+		</div>
+
 </body>
 
 </html>

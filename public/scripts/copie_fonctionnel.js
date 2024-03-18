@@ -574,29 +574,31 @@ function demarrerMiseAJourEnTempsReel() {
 
 function initialiserPlateau(carte) {
     const plateau = document.getElementById('plateau');
-    plateau.innerHTML = ''; // On s'assure que le plateau est vide
-
-    let table = document.createElement('table');
+    plateau.innerHTML = '';
 
     carte.forEach((ligne, indiceLigne) => {
-        let tr = document.createElement('tr');
         ligne.forEach((cell, indiceColonne) => {
-            let td = document.createElement('td');
-            // Ajustez l'index de la colonne pour commencer à 1
-            td.dataset.colonne = indiceColonne + 1;
-            td.dataset.ligne = indiceLigne;
+            // Ajouter 1 à indiceColonne pour commencer la numérotation à 1
+            const pion = document.createElement('div');
+            pion.classList.add('pion');
+            // Utiliser indiceColonne + 1 ici pour le dataset et l'id
+            pion.id = `cell-${indiceLigne}-${indiceColonne + 1}`;
+            pion.dataset.colonne = indiceColonne + 1;
+            pion.dataset.ligne = indiceLigne;
 
-            tr.appendChild(td);
+            if (cell === 1) {
+                pion.classList.add('joueur1');
+            } else if (cell === 2) {
+                pion.classList.add('joueur2');
+            }
+
+            plateau.appendChild(pion);
         });
-        table.appendChild(tr);
     });
-
-    plateau.appendChild(table); // On ajoute la table au plateau
 
     // Ajouter les interactions après l'initialisation du plateau
     ajoutInteractions();
 }
-
 
 function showGame() {
     document.getElementById('inscription').style.display = 'none';
@@ -605,8 +607,8 @@ function showGame() {
 }
 
 function ajoutInteractions() {
-    document.querySelectorAll('#plateau td').forEach(cell => {
-        cell.addEventListener('click', function () {
+    document.querySelectorAll('.pion').forEach(pion => {
+        pion.addEventListener('click', function () {
             let colonne = this.dataset.colonne;
             jouerCoup(colonne);
         });
@@ -630,9 +632,8 @@ async function jouerCoup(colonne) {
             const data = await fetchAPI("jouer", { position: colonne, identifiant: identifiant });
 
             if (data.etat === "En cours") {
-                // Assurez-vous que actualisationPlateau est prêt à gérer une table <td>
                 actualisationPlateau(data.carte);
-                afficherTour(data.tour); // Assurez-vous de passer le tour de l'API ici
+                afficherTour(data.tour);  // Ici, data.tour devrait être soit 1 soit 2 selon qui a le tour.
             } else {
                 finDeJeu(data.etat);
             }
@@ -657,24 +658,24 @@ function afficherTour(tourDeJeu) {
 }
 
 function actualisationPlateau(carte) {
-    carte.forEach((row, rowIndex) => {
-        row.forEach((cell, colIndex) => {
-            // Nous ajoutons 1 à colIndex parce que les données de la colonne commencent à 0 mais les indices de dataset commencent à 1
-            // Nous utilisons également l'indice de ligne pour cibler la bonne cellule
-            const cellElement = document.querySelector(`td[data-ligne="${rowIndex}"][data-colonne="${colIndex + 1}"]`);
-            if (cellElement) {
-                cellElement.className = ''; // Supprimer toutes les classes précédentes
-                if (cell === 1) {
-                    cellElement.classList.add('joueur1', 'falling');
-                } else if (cell === 2) {
-                    cellElement.classList.add('joueur2', 'falling');
+    for (let i = 0; i < carte.length; i++) {
+        for (let j = 0; j < carte[i].length; j++) {
+            // Ajouter 1 à j pour correspondre à la numérotation commençant à 1
+            const cellule = document.getElementById(`cell-${i}-${j + 1}`);
+            if (cellule) {
+                cellule.className = 'pion'; // Réinitialiser les classes
+                if (carte[i][j] === 1) {
+                    cellule.classList.add('joueur1', 'fa');
+                } else if (carte[i][j] === 2) {
+                    cellule.classList.add('joueur2');
                 }
             } else {
-                console.error(`Aucun élément trouvé pour la ligne ${rowIndex} et la colonne ${colIndex + 1}`);
+                console.error('Element non trouvé pour:', `cell-${i}-${j + 1}`);
             }
-        });
-    });
+        }
+    }
 }
+
 
 async function MatchNul() {
     // Afficher une notification de match nul

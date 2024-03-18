@@ -4,17 +4,23 @@
 // @author: ebiabian;
 
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
+@import url('https://fonts.cdnfonts.com/css/king-gaming-free-trial');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 // BALISE
 // -------------------------------
 
+// // // // // // // // // // // // // // //
+// Styles généraux
+// // // // // // // // // // // // // // //
 html {
 	background: url(https://p8.storage.canalblog.com/80/13/833312/99504152_o.gif) no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
 	background-size: cover;
 	font-family: 'Roboto', sans-serif;
+}
+
+body {
+	background-color: transparent !important;
+	background-color: rgba(255, 255, 255, 0.39);
 }
 
 input {
@@ -23,7 +29,7 @@ input {
 	padding: 2px 10px;
 	height: 25px;
 	border-radius: 50px;
-	width: 100px;
+	width: 100%;
 	text-align: center;
 	background-color: rgba(5, 5, 5, 0.8);
 	font-style: italic;
@@ -36,6 +42,7 @@ button {
 	border: none;
 	padding: 5px 10px;
 	border-radius: 50px;
+	width: 20em;
 	color: #fff;
 	font-weight: bold;
 	font-size: 10pt;
@@ -57,48 +64,160 @@ font {
 	color: rgb(255, 0, 170);
 }
 
+// // // // // // // // // // // // // // //
+// Styles responsives
+// // // // // // // // // // // // // // //
+@media (max-width: 768px) {
+
+	// Styles spécifiques pour les tablettes
+	.game-title {
+		font-size: 3rem; // Taille de police plus petite pour les écrans plus petits
+	}
+}
+
+@media (max-width: 600px) {
+	.game-title {
+		font-size: 3rem !important;
+	}
+}
+
+@media (max-width: 430px) {
+
+	// Styles spécifiques pour les téléphones mobiles
+	#inscription-panel,
+	#participer-panel {
+		padding: 10px; // Padding réduit pour les petits écrans
+		border: 2px solid rgba(5, 5, 5, 0.8); // Bordure ajustée
+	}
+
+	.game-title {
+		font-size: 2.5rem !important;
+	}
+
+	// Boutons plus petits pour les petits écrans
+	button {
+		width: auto; // La largeur s'adapte au contenu
+		padding: 5px;
+	}
+
+	input,
+	button {
+		margin: 5px 0; // Moins d'espace entre les champs
+	}
+
+	// Réduire la taille du plateau de jeu pour qu'il s'adapte mieux aux petits écrans
+	// 	#plateau {
+	// 		width: 90%; // Utiliser un pourcentage de la largeur disponible
+	// 		height: auto; // Hauteur automatique pour conserver le ratio
+	// 	}
+}
+
+
 // ID
 // -------------------------------
 
-#ins {
+#inscription {
 	background-color: rgba(255, 255, 255, 0.5);
-	position: fixed;
-	top: 0;
-	left: 0;
 	margin: auto;
+	top: 0;
+	position: fixed;
 	width: 100%;
 	height: 100%;
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 }
 
-#ins-panel {
+#inscription-panel {
 	display: flex;
+	flex-direction: column;
 	padding: 20px;
 	background-color: rgba(255, 255, 255, 0.39);
 	border-radius: 10px;
 	align-items: center;
 	border: 3px solid rgba(5, 5, 5, 0.8);
-	font-family: 'Times Nes Roman';
+	// font-family: 'Times Nes Roman';
+	font-family: 'King Gaming Free Trial',
+		sans-serif;
 }
 
-#plateau {
-	margin-top: 100px;
-	padding: 5px;
-	border: 2px solid #000;
-	background-color: #0025E1;
-	display: flex;
-	width: 380px;
-	height: 400px;
+#participer {
+	background-color: rgba(255, 255, 255, 0.5);
+	position: fixed;
+	top: 0;
+	// left: 0;
 	margin: auto;
-	flex-direction: row;
-	flex-wrap: wrap;
+	width: 100%;
+	height: 100%;
+	display: flex;
 	justify-content: center;
+	flex-direction: column;
 	align-items: center;
-	margin-bottom: 10px;
-	border-radius: 10px;
 }
+
+#participer-panel {
+	display: flex;
+	padding: 20px;
+	// background-color: rgba(255, 255, 255, 0.39);
+	border-radius: 10px;
+	align-items: center;
+	border: 3px solid rgba(5, 5, 5, 0.8);
+	// font-family: 'Times Nes Roman';
+	font-family: 'King Gaming Free Trial',
+		sans-serif;
+}
+
+#plateau table {
+	border: 3px blue outset;
+	background-color: blue;
+	border-collapse: unset !important;
+	border-radius: 0.5cm;
+	margin: auto;
+	padding: 0px;
+	width: 14cm;
+	height: 12cm;
+	cursor: pointer;
+}
+
+#plateau td {
+	width: 2cm;
+	height: 2cm;
+	margin: 0px;
+	padding: 0px;
+	border: 2px blue inset;
+	border-radius: 2cm;
+	background-color: white;
+	cursor: pointer;
+}
+
+#plateau td.joueur1 {
+	background-color: red;
+}
+
+#plateau td.joueur {
+	background-color: yellow;
+}
+
+
+// #plateau {
+// 	margin-top: 100px;
+// 	padding: 5px;
+// 	border: 2px solid #000;
+// 	background-color: #0025E1;
+// 	display: flex;
+// 	// width: 380px;
+// 	// height: 400px;
+// 	width: 25em;
+// 	height: 23em;
+// 	margin: auto;
+// 	flex-direction: row;
+// 	flex-wrap: wrap;
+// 	justify-content: center;
+// 	align-items: center;
+// 	margin-bottom: 10px;
+// 	border-radius: 10px;
+// }
 
 #status {
 	display: flex;
@@ -110,6 +229,11 @@ font {
 }
 
 #info {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
 	padding-top: 20px;
 	margin: auto;
 	text-align: center;
@@ -121,21 +245,52 @@ font {
 	height: 50px;
 }
 
+#participer,
+#inscription {
+	animation: apparition 0.5s ease-out;
+}
+
 // CLASS
 // -------------------------------
+.falling {
+	animation: fall 0.5s ease-in;
+}
 
-.i {
-	&.j1 {
-		color: #0086cb;
-		font-size: 35pt;
-		padding: 5px;
-	}
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 
-	&.j2 {
-		color: #dd1414;
-		font-size: 35pt;
-		padding: 5px;
-	}
+
+.joueur1 {
+	background-color: red !important;
+	/* la couleur pour le joueur 1 */
+}
+
+.joueur2 {
+	background-color: yellow !important;
+	/* la couleur pour le joueur 2 */
+}
+
+.bluur_effect {
+	background-color: rgba(255, 255, 255, 0.39);
+}
+
+.game-title {
+	font-family: 'Press Start 2P', cursive;
+	/* Cette police est souvent associée aux jeux vidéo rétro */
+	font-size: 4rem;
+	/* Taille de police pour le titre */
+	color: #ffffff;
+	/* Couleur du texte, peut-être blanc ou une autre couleur de votre choix */
+	text-shadow: 3px 3px 0px #000;
+	/* Ombre portée pour mieux lire sur des fonds variés */
+	margin-top: 2rem;
+	/* Espacement au-dessus du titre */
+	margin-bottom: 2rem;
+	/* Espacement en dessous du titre */
 }
 
 .ins-player {
@@ -147,8 +302,8 @@ font {
 }
 
 .pion {
-	width: 20px;
-	height: 20px;
+	width: 40px;
+	height: 40px;
 	padding: 10px;
 	background-color: white;
 	margin: 5px;
@@ -158,8 +313,8 @@ font {
 	border-radius: 50%;
 
 	&:hover {
-		width: 25px;
-		height: 25px;
+		width: 45px;
+		height: 45px;
 		border: none;
 	}
 }
@@ -175,5 +330,72 @@ font {
 
 	&.j2 {
 		background-color: #dd1414;
+	}
+}
+
+.btn-participer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-retour {
+	margin-top: 20px;
+	background-color: #f44336;
+	/* Couleur de fond rouge */
+	color: white;
+	/* Texte blanc */
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	/* Animation */
+}
+
+.btn-retour:hover {
+	background-color: #d32f2f;
+	/* Couleur de fond plus foncée au survol */
+}
+
+.finir-jeu-btn {
+	margin-top: 15px;
+	padding: 10px 15px;
+	background-color: #e74c3c;
+	/* Couleur rouge pour l'action de fin */
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.finir-jeu-btn:hover {
+	background-color: #c0392b;
+	/* Couleur rouge plus foncée au survol */
+}
+
+/* Animation d'apparition pour le formulaire */
+@keyframes apparition {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fall {
+	from {
+		transform: translateY(-500px);
+	}
+
+	to {
+		transform: translateY(0);
 	}
 }
