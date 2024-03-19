@@ -94,6 +94,25 @@ function definirNomsJoueurs(joueur1, joueur2) {
     document.getElementById('j2-name').textContent = joueur2 || "...";
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Get the player's name from localStorage
+    const playerName = localStorage.getItem('p4_pseudo');
+
+    // Get the element where the player's name will be displayed
+    const playerNameElement = document.getElementById('reconnexion-player-name');
+    console.log('nom dans le localstorage :', playerName)
+
+    // Check if the player's name was retrieved from localStorage
+    if (playerName) {
+        // If a name was found, display it
+        playerNameElement.textContent = playerName;
+    } else {
+        // If no name was found, display "non connecté"
+        playerNameElement.textContent = "non connecté";
+    }
+});
+
+
 // // // // // // // // // // // // // // //
 // Gestion UI
 // // // // // // // // // // // // // // //
@@ -101,7 +120,7 @@ function afficherAlerte(message, type) {
     let alertContainer = document.getElementById('alert-container');
     if (!alertContainer) {
         console.error('Le conteneur d\'alerte est introuvable dans le DOM.');
-        return; // Sortez de la fonction si le conteneur n'existe pas.
+        return; // Sortir de la fonction si le conteneur n'existe pas.
     }
 
     let alert = alertContainer.querySelector('.alert');
@@ -163,11 +182,8 @@ function showParticiperForm() {
 }
 
 function retournerEcranParticipation() {
-    // Vous devriez ici définir la logique pour cacher le jeu et montrer l'écran de participation à nouveau.
-    // Par exemple:
     document.getElementById('jeu').style.display = 'none';
     document.getElementById('participer').style.display = 'flex';
-    // Réinitialiser l'état du jeu si nécessaire, etc.
 }
 
 // // // // // // // // // // // // // // //
@@ -178,40 +194,31 @@ async function inscription() {
     const pseudo = pseudoInput.value.trim();
 
     if (!pseudo) {
-        afficherAlerte("Veuillez entrer un pseudo.", "warning");
+        afficherAlerte("Veuillez entrer un pseudo valide.", "warning");
         return;
     }
 
     try {
-        // Appel à l'API pour créer un joueur avec le pseudo donné
-        const response = await fetchAPI('inscription', { pseudo: pseudo });
+        const response = await fetchAPI('inscription', { pseudo });
         if (response.etat === gameStates.OK) {
-            // Enregistrement des informations du joueur dans le localStorage
             saveToLocalStorage(localStorageKeys.pseudo, pseudo);
             saveToLocalStorage(localStorageKeys.identifiant, response.identifiant);
-
-            // Affichage d'une alerte pour informer l'utilisateur de l'inscription réussie
             afficherAlerte("Inscription réussie", "success");
-            document.getElementById('connected-player-name').textContent = pseudo; // Affichage du pseudo dans la section participer
-            document.getElementById('reconnexion-player-name').textContent = pseudo; // Mise à jour du bouton de reco
 
-            // Mise à jour de l'état global du jeu
             gameState = {
                 ...gameState,
-                pseudo: pseudo,
+                pseudo,
                 identifiant: response.identifiant
             };
 
-            // Masquage du formulaire d'inscription et affichage du pseudo du joueur dans le formulaire de participation
             showParticiperForm();
-
-            // Affichage du message de connexion réussie
             afficherAlerte(`Connecté en tant que : ${pseudo}`, "success");
         } else {
-            afficherAlerte(etatMessages[response.etat], etatAlerteTypes[response.etat]);
+            // Affichage d'une alerte basée sur le message de l'API
+            afficherAlerte(response.message || etatMessages[response.etat], etatAlerteTypes[response.etat] || "warning");
         }
     } catch (error) {
-        afficherAlerte("Erreur lors de la connexion : " + error.message, "danger");
+        afficherAlerte("Erreur lors de l'inscription : " + error.message, "danger");
     }
 }
 
@@ -313,15 +320,15 @@ async function participer() {
 }
 
 async function tentativeReconnexion() {
-    // Récupérez l'identifiant depuis le localStorage
+    // Récupère l'identifiant depuis le localStorage
     const identifiant = getFromLocalStorage(localStorageKeys.identifiant);
     if (!identifiant) {
         afficherAlerte("Aucun identifiant de joueur trouvé pour la reconnexion.", "warning");
-        return; // Sortez si aucun identifiant n'est trouvé
+        return; // Sortir si aucun identifiant n'est trouvé
     }
 
     try {
-        // Vérifiez l'état du joueur avec l'identifiant
+        // Vérifie l'état du joueur avec l'identifiant
         const data = await fetchAPI("statut", { identifiant: identifiant });
 
         // Si le statut est OK, le joueur est toujours valide
@@ -339,11 +346,11 @@ async function tentativeReconnexion() {
             document.getElementById('connected-player-name').textContent = gameState.pseudo;
             afficherAlerte(`Reconnecté en tant que : ${gameState.pseudo}`, "success");
         } else {
-            // Gérez les autres états de la réponse
+            // Gére les autres états de la réponse
             afficherAlerte(etatMessages[data.etat] || "Session expirée ou invalide. Veuillez vous reconnecter.", etatAlerteTypes[data.etat] || "warning");
         }
     } catch (error) {
-        // Affichez une alerte en cas d'erreur réseau
+        // Affiche une alerte en cas d'erreur réseau
         afficherAlerte("Erreur de réseau lors de la tentative de reconnexion: " + error.message, "danger");
     }
 }
@@ -374,7 +381,7 @@ async function reconnexion() {
             // afficherTour(data.tour);
             // initialiserPlateau(data.carte);
             // showGame();
-            // demarrerMiseAJourEnTempsReel(); // Assurez-vous que cette fonction est définie pour rafraîchir l'état du jeu
+            // demarrerMiseAJourEnTempsReel(); 
             showParticiperForm();
             afficherAlerte(`Reconnecté en tant que : ${gameState.pseudo}. Partie en cours !`, "success");
         } else if (data.etat === "OK") {
@@ -411,16 +418,14 @@ async function deconnexion() {
 
     };
 
+    // Effacer les données de l'utilisateur du localStorage
+    // localStorage.removeItem(localStorageKeys.pseudo);
+    // localStorage.removeItem(localStorageKeys.identifiant);
+
     // Afficher le formulaire d'inscription et masquer le formulaire de participation
     document.getElementById('inscription').style.display = 'flex';
     document.getElementById('participer').style.display = 'none';
 
-    // Mettre à jour l'interface pour refléter l'état "non connecté"
-    const playerNameElement = document.getElementById('reconnexion-player-name');
-    // si est vide
-    if (playerNameElement === "") {
-        playerNameElement.textContent = "non connecté";
-    }
 
     // Afficher une alerte pour informer l'utilisateur de la déconnexion
     afficherAlerte("Vous avez été déconnecté.", "info");
@@ -510,11 +515,10 @@ async function initialiserJeu() {
         if (detailsPartie.etat === "En cours") {
             gameState.jeuActif = true;
 
-            // Supposons que `detailsPartie.joueur` contient le numéro du joueur actuel ('1' ou '2')
             gameState.monNumeroJoueur = detailsPartie.joueur;
 
             definirNomsJoueurs(detailsPartie.pseudo, detailsPartie.adversaire);
-            afficherTour(detailsPartie.tour); // La fonction afficherTour sera mise à jour pour utiliser cette nouvelle logique.
+            afficherTour(detailsPartie.tour);
             initialiserPlateau(detailsPartie.carte);
             showGame();
             demarrerMiseAJourEnTempsReel();
@@ -528,7 +532,6 @@ async function initialiserJeu() {
 }
 
 function demarrerMiseAJourEnTempsReel() {
-    // Assurez-vous de n'avoir qu'une seule mise à jour en temps réel active
     if (gameState.miseAJourInterval) {
         clearInterval(gameState.miseAJourInterval);
     }
@@ -543,7 +546,7 @@ function demarrerMiseAJourEnTempsReel() {
             switch (detailsPartie.etat) {
                 case "En cours":
                     actualisationPlateau(detailsPartie.carte);
-                    afficherTour(detailsPartie.tour); // Assurez-vous de passer le tour de l'API ici
+                    afficherTour(detailsPartie.tour);
                     break;
                 case "Abandon":
                     afficherAlerte("L'adversaire a abandonné la partie.", "warning");
@@ -582,7 +585,7 @@ function initialiserPlateau(carte) {
         let tr = document.createElement('tr');
         ligne.forEach((cell, indiceColonne) => {
             let td = document.createElement('td');
-            // Ajustez l'index de la colonne pour commencer à 1
+            // Ajuste l'index de la colonne pour commencer à 1
             td.dataset.colonne = indiceColonne + 1;
             td.dataset.ligne = indiceLigne;
 
@@ -630,9 +633,8 @@ async function jouerCoup(colonne) {
             const data = await fetchAPI("jouer", { position: colonne, identifiant: identifiant });
 
             if (data.etat === "En cours") {
-                // Assurez-vous que actualisationPlateau est prêt à gérer une table <td>
                 actualisationPlateau(data.carte);
-                afficherTour(data.tour); // Assurez-vous de passer le tour de l'API ici
+                afficherTour(data.tour);
             } else {
                 finDeJeu(data.etat);
             }
@@ -663,7 +665,7 @@ function actualisationPlateau(carte) {
             // Nous utilisons également l'indice de ligne pour cibler la bonne cellule
             const cellElement = document.querySelector(`td[data-ligne="${rowIndex}"][data-colonne="${colIndex + 1}"]`);
             if (cellElement) {
-                cellElement.className = ''; // Supprimer toutes les classes précédentes
+                cellElement.className = '';
                 if (cell === 1) {
                     cellElement.classList.add('joueur1', 'falling');
                 } else if (cell === 2) {

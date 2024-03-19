@@ -3,9 +3,13 @@
 // @date: 03/02/2020;
 // @author: ebiabian;
 
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import url('https://fonts.cdnfonts.com/css/king-gaming-free-trial');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Ensuite, appliquez-la à l'élément souhaité */
+
 // BALISE
 // -------------------------------
 
@@ -72,13 +76,41 @@ font {
 	// Styles spécifiques pour les tablettes
 	.game-title {
 		font-size: 3rem; // Taille de police plus petite pour les écrans plus petits
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
+	}
+
+	#plateau td {
+		width: 1.5cm; // Taille des cases réduite
+		height: 1.5cm;
+	}
+
+	#plateau table {
+		width: 10cm; // Taille du plateau réduite
+		height: 8cm;
 	}
 }
 
 @media (max-width: 600px) {
 	.game-title {
 		font-size: 3rem !important;
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
 	}
+
+}
+
+@media (max-width: 560px) {
+	#plateau td {
+		width: 1.8cm !important; // Taille des cases réduite
+		height: 1.8cm !important;
+	}
+
+	#plateau table {
+		width: 12cm !important; // Taille du plateau réduite
+		height: 10cm !important;
+	}
+
 }
 
 @media (max-width: 430px) {
@@ -92,6 +124,8 @@ font {
 
 	.game-title {
 		font-size: 2.5rem !important;
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
 	}
 
 	// Boutons plus petits pour les petits écrans
@@ -105,11 +139,23 @@ font {
 		margin: 5px 0; // Moins d'espace entre les champs
 	}
 
-	// Réduire la taille du plateau de jeu pour qu'il s'adapte mieux aux petits écrans
-	// 	#plateau {
-	// 		width: 90%; // Utiliser un pourcentage de la largeur disponible
-	// 		height: auto; // Hauteur automatique pour conserver le ratio
-	// 	}
+	#plateau td {
+		width: 1.5cm !important; // Taille des cases réduite
+		height: 1.5cm !important;
+	}
+
+	#plateau table {
+		width: 10cm !important; // Taille du plateau réduite
+		height: 8cm !important;
+	}
+
+	.mb_fontsize {
+		text-align: center;
+	}
+
+	.btn {
+		width: 100% !important;
+	}
 }
 
 
@@ -340,6 +386,10 @@ font {
 	align-items: center;
 }
 
+.btn_inside {
+	width: 100% !important;
+}
+
 .btn-retour {
 	margin-top: 20px;
 	background-color: #f44336;
@@ -399,3 +449,6 @@ font {
 		transform: translateY(0);
 	}
 }
+
+
+// -----
